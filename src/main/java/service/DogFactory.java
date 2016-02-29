@@ -36,7 +36,7 @@ public class DogFactory {
     public Dog createDog() throws IOException {
         DogSize size = DogSize.SMALL;
         int age = random.nextInt(10) + 1;
-        String name = nameGenerator.getName(new Random(), new DogNameDao());
+        String name = nameGenerator.getName();
         return new Dog(name, size, age);
     }
 }
