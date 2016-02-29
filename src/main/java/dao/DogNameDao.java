@@ -8,14 +8,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class DogNameDao {
-    public static List<String> getNames() throws IOException {
+    public List<String> getNames() throws IOException {
         Path path = Paths.get("src/main/resources/names.txt");
         List<String> dogNames = Files.readAllLines(path, StandardCharsets.UTF_8);
     return dogNames;
-    }
-
-    public static void main(String[] args)throws IOException {
-        System.out.println(getNames());
     }
 
 }
