@@ -8,8 +8,14 @@ import java.io.IOException;
 import java.util.Random;
 
 public class DogFactory {
-    Random random = new Random();
-    NameGenerator nameGenerator = new NameGenerator(new Random(), new DogNameDao());
+
+    private final Random random;
+    private final NameGenerator nameGenerator;
+
+    public DogFactory(Random random, NameGenerator nameGenerator){
+        this.random = random;
+        this.nameGenerator = nameGenerator;
+    }
 
     public Dog createDog(String name) {
         int age = random.nextInt(10) + 1;
