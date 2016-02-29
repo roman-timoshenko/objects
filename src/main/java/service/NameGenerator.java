@@ -14,7 +14,7 @@ public class NameGenerator {
         this.dogNameDao = dogNameDao;
     }
 
-    public String getName(Random random, DogNameDao dogNameDao) throws IOException {
+    public String getName() throws IOException {
         return dogNameDao.getNames().get(random.nextInt(100) + 1);
     }
 }
