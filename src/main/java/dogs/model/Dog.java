@@ -1,6 +1,6 @@
 package dogs.model;
 
-public class Dog implements Comparable<Dog>{
+public class Dog{
     private String name;
     private DogSize dogSize;
     private int age;
@@ -21,10 +21,6 @@ public class Dog implements Comparable<Dog>{
 
     public int getAge() {
         return age;
-    }
-
-    public int compareTo(Dog anotherDog) throws ClassCastException {
-        return this.name.compareTo(anotherDog.getName());
     }
 
     @Override

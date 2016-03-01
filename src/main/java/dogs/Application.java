@@ -31,7 +31,7 @@ public class Application {
             System.out.println(dog);
         }
         System.out.println(" ");
-        Dog[] sortDogs = sort.selectionsort(dogs,new SizeComparator());
+        Dog[] sortDogs = sort.selectionsort(dogs,new NameComparator());
         for (Dog dog : sortDogs) {
             System.out.println(dog);
         }
