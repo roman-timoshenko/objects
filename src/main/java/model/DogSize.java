@@ -1,4 +1,4 @@
-package dog;
+package model;
 
 public enum DogSize {
         SMALL,

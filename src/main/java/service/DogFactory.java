@@ -1,8 +1,7 @@
 package service;
 
-import dao.DogNameDao;
-import dog.Dog;
-import dog.DogSize;
+import model.Dog;
+import model.DogSize;
 
 import java.io.IOException;
 import java.util.Random;
