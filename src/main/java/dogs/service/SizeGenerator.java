@@ -9,12 +9,7 @@ public class SizeGenerator {
     private static int size = values.length;
     private static Random random = new Random();
 
-    public static DogSize getRandomSize() {
+    public DogSize getRandomSize() {
         return values[random.nextInt(size)];
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(getRandomSize());
     }
 }
