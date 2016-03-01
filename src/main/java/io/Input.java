@@ -3,11 +3,14 @@ package io;
 import java.util.Scanner;
 
 public class Input {
-    Scanner in = new Scanner(System.in);
+    private final Scanner scanner;
+    public Input(Scanner scanner){
+        this.scanner = scanner;
+    }
     public int getSize(){
-        return in.nextInt();}
+        return scanner.nextInt();}
     public String[] getNames(){
-        String input = in.nextLine();
+        String input = scanner.nextLine();
         String[] temp =  input.split(" ");
         return temp;
     }

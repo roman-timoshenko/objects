@@ -8,6 +8,7 @@ import service.SizeGenerator;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) throws IOException {
@@ -17,10 +18,10 @@ public class Application {
         SizeGenerator sizeGenerator = new SizeGenerator();
         DogFactory dogFactory = new DogFactory(random, nameGenerator, sizeGenerator);
         DogsService dogsService = new DogsService(dogFactory);
-        Input input = new Input();
+        Scanner scanner = new Scanner(System.in);
+        Input input = new Input(scanner);
         System.out.println("Please enter values");
         int size = input.getSize();
-        System.out.println(size);
         String[] names = input.getNames();
         Dog[] dogs = dogsService.createDogsArray(size,names);
         for (Dog dog : dogs) {
