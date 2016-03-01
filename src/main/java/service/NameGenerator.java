@@ -15,6 +15,6 @@ public class NameGenerator {
     }
 
     public String getName() throws IOException {
-        return dogNameDao.getNames().get(random.nextInt(100) + 1);
+        return dogNameDao.getNames().get(random.nextInt(dogNameDao.getNames().size()) + 1);
     }
 }
