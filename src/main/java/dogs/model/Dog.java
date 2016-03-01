@@ -1,4 +1,4 @@
-package model;
+package dogs.model;
 
 public class Dog implements Comparable<Dog>{
     private String name;

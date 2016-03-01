@@ -1,4 +1,4 @@
-package dao;
+package dogs.dao;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

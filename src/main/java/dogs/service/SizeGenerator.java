@@ -1,6 +1,6 @@
-package service;
+package dogs.service;
 
-import model.DogSize;
+import dogs.model.DogSize;
 
 import java.util.Random;
 

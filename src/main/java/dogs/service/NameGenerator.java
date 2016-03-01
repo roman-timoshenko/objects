@@ -1,6 +1,6 @@
-package service;
+package dogs.service;
 
-import dao.DogNameDao;
+import dogs.dao.DogNameDao;
 
 import java.io.IOException;
 import java.util.Random;

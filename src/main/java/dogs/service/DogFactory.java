@@ -1,7 +1,7 @@
-package service;
+package dogs.service;
 
-import model.Dog;
-import model.DogSize;
+import dogs.model.Dog;
+import dogs.model.DogSize;
 
 import java.io.IOException;
 import java.util.Random;

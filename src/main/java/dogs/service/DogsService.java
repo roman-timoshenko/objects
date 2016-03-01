@@ -1,6 +1,6 @@
-package service;
+package dogs.service;
 
-import model.Dog;
+import dogs.model.Dog;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package io;
+package dogs.io;
 
 import java.util.Scanner;
 
