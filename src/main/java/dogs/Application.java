@@ -2,6 +2,7 @@ package dogs;
 
 import dogs.dao.DogNameDao;
 import dogs.io.Input;
+import dogs.io.Output;
 import dogs.model.Dog;
 import dogs.service.*;
 import dogs.service.comparator.AgeComparator;
@@ -15,25 +16,23 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
-        DogNameDao dogNameDao = new DogNameDao();
+        DogNameDao dogNameDao = new DogNameDao("src/main/resources/names.txt");
         NameGenerator nameGenerator = new NameGenerator(random, dogNameDao);
         SizeGenerator sizeGenerator = new SizeGenerator();
         DogFactory dogFactory = new DogFactory(random, nameGenerator, sizeGenerator);
         DogsService dogsService = new DogsService(dogFactory);
         Scanner scanner = new Scanner(System.in);
         Input input = new Input(scanner);
+        Output output = new Output();
         Sort sort = new Sort();
-        System.out.println("Please enter values");
+        output.askUser("Please enter size and names");
         int size = input.getSize();
         String[] names = input.getNames();
         Dog[] dogs = dogsService.createDogsArray(size,names);
-        for (Dog dog : dogs) {
-            System.out.println(dog);
-        }
-        System.out.println(" ");
+        output.askUser("Before sort");
+        output.printArray(dogs);
         Dog[] sortDogs = sort.selectionsort(dogs,new NameComparator());
-        for (Dog dog : sortDogs) {
-            System.out.println(dog);
-        }
+        output.askUser("After sort");
+        output.printArray(sortDogs);
     }
 }

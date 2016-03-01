@@ -8,10 +8,13 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class DogNameDao {
+    private final Path path;
+    public DogNameDao(String filePath) {
+        this.path = Paths.get(filePath);
+    }
+
     public List<String> getNames() throws IOException {
-        Path path = Paths.get("src/main/resources/names.txt");
-        List<String> dogNames = Files.readAllLines(path, StandardCharsets.UTF_8);
-    return dogNames;
+        return Files.readAllLines(path, StandardCharsets.UTF_8);
     }
 
 }
