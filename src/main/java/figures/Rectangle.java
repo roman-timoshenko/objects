@@ -10,20 +10,26 @@ public class Rectangle implements Figure{
         this.bottomRight = bottomRight;
     }
 
-    public int area() {
+    public double area() {
         return getLength(upperLeft, bottomRight)*getWidth(upperLeft, bottomRight);
     }
 
-    public int perimeter() {
+    public double perimeter() {
         return 2*(getLength(upperLeft, bottomRight)+getWidth(upperLeft, bottomRight));
     }
 
     public Rectangle move(int x, int y) {
-        return new Rectangle(new Point(upperLeft.getX()+x, upperLeft.getY()+y),new Point(upperLeft.getX()+x, upperLeft.getY()+y));
+        return new Rectangle(
+                new Point(upperLeft.getX()+x, upperLeft.getY()+y),
+                new Point(upperLeft.getX()+x, upperLeft.getY()+y));
     }
 
     public boolean isInside(Point a) {
-        return false;
+       if (upperLeft.getX() <= a.getX() &&
+               bottomRight.getX() >= a.getX() &&
+               upperLeft.getY() <= a.getY() &&
+               bottomRight.getY() >= a.getY()) return true;
+        else return false;
     }
 
     public int getLength(Point upperLeft, Point bottomRight){
