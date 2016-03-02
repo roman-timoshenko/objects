@@ -1,20 +1,19 @@
 package dogs.service;
 
-import dogs.dao.DogNameDao;
-
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 public class NameGenerator {
     private final Random random;
-    private final DogNameDao dogNameDao;
+    private final List<String> dogNames;
 
-    public NameGenerator(Random random,DogNameDao dogNameDao ) {
+    public NameGenerator(Random random, List<String> dogNames) {
         this.random = random;
-        this.dogNameDao = dogNameDao;
+        this.dogNames = dogNames;
     }
 
     public String getName() throws IOException {
-        return dogNameDao.getNames().get(random.nextInt(dogNameDao.getNames().size()) + 1);
+        return dogNames.get(random.nextInt(dogNames.size()));
     }
 }

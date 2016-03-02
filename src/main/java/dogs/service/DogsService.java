@@ -15,7 +15,8 @@ public class DogsService {
         Dog[] dogs = new Dog[size];
         for (int i = 0; i < names.length-1; i++) {
             dogs[i] = dogFactory.createDog(names[i+1]);
-        } for (int j = names.length-1; j<size; j++) {
+        }
+        for (int j = names.length-1; j<size; j++) {
             dogs[j] = dogFactory.createDog();
         }
         return dogs;

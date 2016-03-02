@@ -7,9 +7,8 @@ import java.util.Random;
 public class SizeGenerator {
     private static DogSize[] values = DogSize.values();
     private static int size = values.length;
-    private static Random random = new Random();
 
-    public DogSize getRandomSize() {
+    public DogSize getRandomSize(Random random) {
         return values[random.nextInt(size)];
     }
 }

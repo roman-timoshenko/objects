@@ -20,7 +20,7 @@ public class DogFactory {
 
     public Dog createDog(String name) {
         int age = random.nextInt(20) + 1;
-        DogSize size = sizeGenerator.getRandomSize();
+        DogSize size = sizeGenerator.getRandomSize(random);
         return new Dog(name, size, age);
     }
 
@@ -30,12 +30,12 @@ public class DogFactory {
     }
 
     public Dog createDog(String name, int age) {
-        DogSize size = sizeGenerator.getRandomSize();
+        DogSize size = sizeGenerator.getRandomSize(random);
         return new Dog(name, size, age);
     }
 
     public Dog createDog() throws IOException {
-        DogSize size = DogSize.SMALL;
+        DogSize size = sizeGenerator.getRandomSize(random);
         int age = random.nextInt(20) + 1;
         String name = nameGenerator.getName();
         return new Dog(name, size, age);

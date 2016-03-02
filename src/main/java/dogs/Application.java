@@ -1,38 +1,53 @@
 package dogs;
 
-import dogs.dao.DogNameDao;
-import dogs.io.Input;
-import dogs.io.Output;
 import dogs.model.Dog;
-import dogs.service.*;
-import dogs.service.comparator.AgeComparator;
+import dogs.service.DogsService;
+import dogs.service.Sort;
 import dogs.service.comparator.NameComparator;
-import dogs.service.comparator.SizeComparator;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) throws IOException {
-        Random random = new Random();
-        DogNameDao dogNameDao = new DogNameDao("src/main/resources/names.txt");
-        NameGenerator nameGenerator = new NameGenerator(random, dogNameDao);
-        SizeGenerator sizeGenerator = new SizeGenerator();
-        DogFactory dogFactory = new DogFactory(random, nameGenerator, sizeGenerator);
-        DogsService dogsService = new DogsService(dogFactory);
-        Scanner scanner = new Scanner(System.in);
-        Input input = new Input(scanner);
-        Output output = new Output();
-        Sort sort = new Sort();
-        output.askUser("Please enter size and names");
-        int size = input.getSize();
-        String[] names = input.getNames();
-        Dog[] dogs = dogsService.createDogsArray(size,names);
-        output.askUser("Before sort");
-        output.printArray(dogs);
-        Dog[] sortDogs = sort.selectionsort(dogs,new NameComparator());
-        output.askUser("After sort");
-        output.printArray(sortDogs);
+    private final Scanner scanner;
+    private final DogsService dogsService;
+    private final Sort sort;
+
+    public Application(Scanner scanner, DogsService dogsService, Sort sort){
+        this.scanner = scanner;
+        this.dogsService = dogsService;
+        this.sort = sort;
     }
+
+    public int getSize(){
+        return scanner.nextInt();}
+
+    public String[] getNames(){
+       String input = scanner.nextLine();
+       String[] temp = input.split("\\s+");
+        return temp;
+    }
+
+    public void printArray (Dog[] dogs){
+        for (int i = 0; i < dogs.length; i++) {
+            System.out.println(dogs[i].getName() + "\t" + dogs[i].getDogSize() + "\t" + dogs[i].getAge());
+        }
+        System.out.println(" ");
+
+    }
+
+    public void run() {
+        try {
+            System.out.println("Enter values");
+            Dog[] dogs = dogsService.createDogsArray(getSize(),getNames());
+            System.out.println("Default array of dogs");
+            printArray(dogs);
+            Dog[] sortDogs = sort.selectionsort(dogs,new NameComparator());
+            System.out.println("Sorted array of dogs");
+            printArray(sortDogs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
