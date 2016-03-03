@@ -10,6 +10,14 @@ public class Rectangle implements Figure {
         this.bottomRight = bottomRight;
     }
 
+    public Point getUpperLeft() {
+        return upperLeft;
+    }
+
+    public Point getBottomRight() {
+        return bottomRight;
+    }
+
     public double area() {
         return getLength(upperLeft, bottomRight) * getWidth(upperLeft, bottomRight);
     }
@@ -21,7 +29,7 @@ public class Rectangle implements Figure {
     public Rectangle move(int x, int y) {
         return new Rectangle(
                 new Point(upperLeft.getX() + x, upperLeft.getY() + y),
-                new Point(upperLeft.getX() + x, upperLeft.getY() + y));
+                new Point(bottomRight.getX() + x, bottomRight.getY() + y));
     }
 
     public boolean isInside(Point a) {
@@ -31,12 +39,12 @@ public class Rectangle implements Figure {
                 bottomRight.getY() >= a.getY();
     }
 
-    public int getLength(Point upperLeft, Point bottomRight) {
+    private int getLength(Point upperLeft, Point bottomRight) {
 
         return Math.abs(upperLeft.getX() - bottomRight.getX());
     }
 
-    public int getWidth(Point upperLeft, Point bottomRight) {
+    private int getWidth(Point upperLeft, Point bottomRight) {
 
         return Math.abs(upperLeft.getY() - bottomRight.getY());
     }

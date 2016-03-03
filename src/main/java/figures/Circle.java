@@ -9,6 +9,14 @@ public class Circle implements Figure {
         this.radius = radius;
     }
 
+    public Point getCenter() {
+        return center;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
     public double area() {
         return Math.PI * Math.pow(radius, 2);
     }
