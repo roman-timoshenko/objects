@@ -26,23 +26,30 @@ public class CircleTest {
 
     @Test
     public void testMove() throws Exception {
-        assertEquals(circle.move(-10, -10).getCenter().getX(), 0);
-        assertEquals(circle.move(-10, -10).getCenter().getY(), 0);
-        assertEquals(circle.move(-10, -10).getRadius(), 10);
+        Circle movedCircle = circle.move(-10, -10);
+        assertEquals(movedCircle.getCenter().getX(), 0);
+        assertEquals(movedCircle.getCenter().getY(), 0);
+        assertEquals(movedCircle.getRadius(), 10);
 
     }
 
     @Test
-    public void testIsInside() throws Exception {
+    public void testIsInsidePositive() throws Exception {
         assertEquals(circle.isInside(new Point(9,9)),true);
     }
 
     @Test
+    public void testIsInsideNegative() throws Exception {
+        assertEquals(circle.isInside(new Point(100,100)),false);
+    }
+
+    @Test
     public void testBoundingBox() throws Exception {
-        assertEquals(circle.boundingBox().getBottomRight().getX(), 20);
-        assertEquals(circle.boundingBox().getBottomRight().getY(), 20);
-        assertEquals(circle.boundingBox().getUpperLeft().getX(), 0);
-        assertEquals(circle.boundingBox().getUpperLeft().getY(), 0);
+        Rectangle rectangle = circle.boundingBox();
+        assertEquals(rectangle.getBottomRight().getX(), 20);
+        assertEquals(rectangle.getBottomRight().getY(), 20);
+        assertEquals(rectangle.getUpperLeft().getX(), 0);
+        assertEquals(rectangle.getUpperLeft().getY(), 0);
 
 
 

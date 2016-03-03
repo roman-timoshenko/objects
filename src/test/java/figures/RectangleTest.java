@@ -25,17 +25,22 @@ public class RectangleTest {
 
     @Test
     public void testMove() throws Exception {
-        assertEquals(rectangle.move(1,1).getUpperLeft().getX(),1);
-        assertEquals(rectangle.move(1,1).getUpperLeft().getY(),1);
-        assertEquals(rectangle.move(1,1).getBottomRight().getX(),11);
-        assertEquals(rectangle.move(1,1).getBottomRight().getY(),6);
+        Rectangle movedRectangle = rectangle.move(1, 1);
+        assertEquals(movedRectangle.getUpperLeft().getX(),1);
+        assertEquals(movedRectangle.getUpperLeft().getY(),1);
+        assertEquals(movedRectangle.getBottomRight().getX(),11);
+        assertEquals(movedRectangle.getBottomRight().getY(),6);
 
     }
 
     @Test
-    public void testIsInside() throws Exception {
+    public void testIsInsidePositive() throws Exception {
         assertEquals(rectangle.isInside(new Point(5,2)),true);
+    }
 
+    @Test
+    public void testIsInsideNegative() throws Exception {
+        assertEquals(rectangle.isInside(new Point(100,100)),false);
     }
 
 }
