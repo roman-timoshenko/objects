@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS names (id INT IDENTITY, first_name VARCHAR(255), last_name VARCHAR(255));
