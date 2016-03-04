@@ -26,7 +26,7 @@ public class Dog{
     @Override
     public String toString() {
         return "Dog{" +
-                "User='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", dogSize=" + dogSize +
                 ", age=" + age +
                 '}';
