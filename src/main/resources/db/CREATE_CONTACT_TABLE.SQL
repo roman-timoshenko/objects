@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS contact (id INT IDENTITY, address_id INT, first_name VARCHAR(255), last_name VARCHAR(255));
+ALTER TABLE contact ADD FOREIGN KEY (address_id) REFERENCES address (id) ON DELETE CASCADE;

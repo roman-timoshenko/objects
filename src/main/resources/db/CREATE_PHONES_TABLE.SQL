@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS phone (contact_id INT , phone VARCHAR(255));
+ALTER TABLE phone ADD FOREIGN KEY (contact_id) REFERENCES contact (id) ON DELETE CASCADE;

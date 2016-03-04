@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS country (id INT IDENTITY, country_name VARCHAR(255));

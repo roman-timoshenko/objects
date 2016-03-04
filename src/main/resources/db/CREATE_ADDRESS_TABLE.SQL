@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS address (id INT IDENTITY, town VARCHAR(255), street VARCHAR(255), house INT, flat INT);
