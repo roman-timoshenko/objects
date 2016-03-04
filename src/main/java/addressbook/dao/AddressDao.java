@@ -2,8 +2,10 @@ package addressbook.dao;
 
 import addressbook.model.Address;
 
+import java.sql.SQLException;
+
 public interface AddressDao {
-    void add (String town, String street, int house, int flat);
-    Address get (int id);
-    void delete (int id);
+    void add (String town, String street, int house, int flat) throws SQLException;
+    Address get (int id) throws SQLException;
+    void delete (int id) throws SQLException;
 }
