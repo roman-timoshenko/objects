@@ -11,4 +11,13 @@
         <property name="username" value="sa" />
         <property name="password" value="" />
     </bean>
+
+    <jdbc:initialize-database>
+        <jdbc:script location="db/CREATE_ADDRESS_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_CONTACT_COUNTRY_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_CONTACT_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_COUNTRY_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_PHONES_TABLE.SQL"/>
+    </jdbc:initialize-database>
+
 </beans>
