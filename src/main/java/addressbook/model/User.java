@@ -1,18 +1,24 @@
 package addressbook.model;
 
-public class Name {
+public class User {
     private int id;
+    private int address_id;
     private String firstName;
     private String lastName;
 
-    public Name(int id, String firstName, String lastName) {
+    public User(int id, int address_id, String firstName, String lastName) {
         this.id = id;
+        this.address_id = address_id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getAddress_id() {
+        return address_id;
     }
 
     public String getFirstName() {
@@ -25,8 +31,9 @@ public class Name {
 
     @Override
     public String toString() {
-        return "Name{" +
+        return "User{" +
                 "id=" + id +
+                ", address_id=" + address_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

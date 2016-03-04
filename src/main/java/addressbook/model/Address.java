@@ -1,16 +1,22 @@
 package addressbook.model;
 
 public class Address {
+    int id;
     private String town;
     private String street;
     private int house;
     private int flat;
 
-    public Address(String town, String street, int house, int flat) {
+    public Address(int id, String town, String street, int house, int flat) {
+        this.id = id;
         this.town = town;
         this.street = street;
         this.house = house;
         this.flat = flat;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTown() {
@@ -32,7 +38,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "town='" + town + '\'' +
+                "id=" + id +
+                ", town='" + town + '\'' +
                 ", street='" + street + '\'' +
                 ", house=" + house +
                 ", flat=" + flat +

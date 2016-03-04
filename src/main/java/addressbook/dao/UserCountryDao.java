@@ -1,8 +1,8 @@
 package addressbook.dao;
 
 public interface UserCountryDao {
-    int getUserCountry (int userId);
-    void addUserCountry (int userId,int countryId);
-    void deleteUserCountry (int userId);
+    int get (int userId);
+    void add (int userId,int countryId);
+    void delete (int userId);
 
 }

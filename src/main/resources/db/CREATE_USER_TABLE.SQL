@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS names (user_id INT IDENTITY, address_id INT, first_name VARCHAR(255), last_name VARCHAR(255));

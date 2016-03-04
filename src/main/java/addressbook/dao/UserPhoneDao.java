@@ -1,7 +1,7 @@
 package addressbook.dao;
 
 public interface UserPhoneDao {
-    void addUserPhone (int userId, String phone);
-    String getUserPhone (int userId);
-    void deleteUserPhone (int userId);
+    void add(int userId, String phone);
+    String get (int userId);
+    void delete (int userId);
 }

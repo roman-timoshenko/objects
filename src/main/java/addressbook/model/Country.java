@@ -21,7 +21,7 @@ public class Country {
     public String toString() {
         return "Country{" +
                 "id=" + id +
-                ", Name='" + name + '\'' +
+                ", User='" + name + '\'' +
                 '}';
     }
 }
