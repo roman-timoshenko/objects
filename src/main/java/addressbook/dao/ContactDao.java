@@ -5,7 +5,7 @@ import addressbook.model.Contact;
 import java.sql.SQLException;
 
 public interface ContactDao {
-    Contact add (String name) throws SQLException;
+    void add (String fisrtName, String lastName) throws SQLException;
     Contact get (int id) throws SQLException;
     void delete(int id) throws SQLException;
 }
