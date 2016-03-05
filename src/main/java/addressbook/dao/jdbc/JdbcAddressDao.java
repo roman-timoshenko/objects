@@ -2,11 +2,9 @@ package addressbook.dao.jdbc;
 
 import addressbook.dao.AddressDao;
 import addressbook.model.Address;
-import org.springframework.context.ApplicationContext;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Optional;
 
 
 public class JdbcAddressDao implements AddressDao{

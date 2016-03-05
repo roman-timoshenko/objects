@@ -1,10 +1,12 @@
 package addressbook.dao;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 public interface ContactCountryDao {
-    int get (int userId) throws SQLException;
-    void add (int userId,int countryId) throws SQLException;
-    void delete (int userId) throws SQLException;
+    int getOne (int contactId) throws SQLException;
+    void add (int contactId,int countryId) throws SQLException;
+    void delete (int contactId) throws SQLException;
+    Map<Integer,Integer> getAll () throws SQLException;
 
 }
