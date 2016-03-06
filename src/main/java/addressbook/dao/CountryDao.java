@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface CountryDao {
     void add (String name) throws SQLException;
-    String get (int id) throws SQLException;
+    Country get (int id) throws SQLException;
     void delete (int id) throws SQLException;
 
 }

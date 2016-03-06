@@ -25,13 +25,14 @@ public class JdbcCountryDao implements CountryDao {
         connection.close();
     }
 
-    public String get(int id) throws SQLException {
+    public Country get(int id) throws SQLException {
         Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT country_name FROM country WHERE id = ?");
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            String country = resultSet.getString(1);
+            String name = resultSet.getString(1);
+            Country country = new Country(id, name);
             return country;
         }
         resultSet.close();
