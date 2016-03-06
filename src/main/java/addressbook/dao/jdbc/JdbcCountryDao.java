@@ -18,21 +18,25 @@ public class JdbcCountryDao implements CountryDao {
 
     public void add(String name) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO country VALUES (?)");
-        statement.setString(2, name);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO country (country_name) VALUES (?)");
+        statement.setString(1, name);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
     }
 
-    public Country get(int id) throws SQLException {
+    public String get(int id) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM country WHERE id = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT country_name FROM country WHERE id = ?");
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            String name = resultSet.getString(2);
-            Country country = new Country(id, name);
+        if (resultSet.next()) {
+            String country = resultSet.getString(1);
             return country;
         }
+        resultSet.close();
+        statement.close();
+        connection.close();
         return null;
     }
 
@@ -41,5 +45,7 @@ public class JdbcCountryDao implements CountryDao {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM country WHERE id = ?");
         statement.setInt(1,id);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
     }
 }

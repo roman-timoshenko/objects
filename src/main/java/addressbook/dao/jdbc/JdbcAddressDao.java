@@ -18,26 +18,29 @@ public class JdbcAddressDao implements AddressDao{
 
     public void add(String town, String street, int house, int flat) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO address VALUES (?,?,?,?)");
-        statement.setString(2,town);
-        statement.setString(3,street);
-        statement.setInt(4,house);
-        statement.setInt(5,flat);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO address (town, street, house, flat) VALUES (?,?,?,?)");
+        statement.setString(1,town);
+        statement.setString(2,street);
+        statement.setInt(3,house);
+        statement.setInt(4,flat);
         statement.executeUpdate();
     }
 
     public Address get(int id) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM address WHERE id = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT town, street, house, flat FROM address WHERE id = ?");
         statement.setInt(1,id);
-        ResultSet resultSet = statement.executeQuery("SELECT town, street, house, flat FROM address WHERE id = ?");
+        ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-        String town = resultSet.getString(2);
-        String street = resultSet.getString(3);
-        int house = resultSet.getInt(4);
-        int flat = resultSet.getInt(5);
+        String town = resultSet.getString(1);
+        String street = resultSet.getString(2);
+        int house = resultSet.getInt(3);
+        int flat = resultSet.getInt(4);
         Address address = new Address (id, town, street, house, flat) ;
             return address; }
+        connection.close();
+        statement.close();
+        resultSet.close();
         return null;
     }
 
@@ -46,6 +49,8 @@ public class JdbcAddressDao implements AddressDao{
         PreparedStatement statement = connection.prepareStatement("DELETE FROM address WHERE id = ?");
         statement.setInt(1,id);
         statement.executeUpdate();
+        connection.close();
+        statement.close();
     }
 
 }

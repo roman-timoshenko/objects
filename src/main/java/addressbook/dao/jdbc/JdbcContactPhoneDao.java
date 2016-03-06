@@ -18,21 +18,25 @@ public class JdbcContactPhoneDao implements ContactPhoneDao {
 
     public void add(int userId, String phone) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO phone VALUES (?,?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO phone (contact_id, phone) VALUES (?,?)");
         statement.setInt(1, userId);
         statement.setString(2, phone);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
     }
 
     public String getOne(int contactId) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM phone WHERE contact_id=?");
+        PreparedStatement statement = connection.prepareStatement("SELECT phone FROM phone WHERE contact_id=?");
         statement.setInt(1, contactId);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            String phone = resultSet.getString(2);
+            String phone = resultSet.getString(1);
+            resultSet.close();
             return phone;
         }
+        connection.close();
         return null;
     }
 
@@ -41,6 +45,9 @@ public class JdbcContactPhoneDao implements ContactPhoneDao {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM phone WHERE contact_id = ?");
         statement.setInt(1, contactId);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
+
     }
 
     public Map<Integer, String> getAll(int userId) throws SQLException {
@@ -53,6 +60,9 @@ public class JdbcContactPhoneDao implements ContactPhoneDao {
             String phone = resultSet.getString(2);
             phones.put(contactId, phone);
         }
+        resultSet.close();
+        statement.close();
+        connection.close();
         return phones;
     }
 }

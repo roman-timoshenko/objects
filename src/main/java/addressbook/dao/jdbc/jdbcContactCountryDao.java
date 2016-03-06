@@ -20,22 +20,27 @@ public class jdbcContactCountryDao implements ContactCountryDao{
 
     public int getOne(int contactId) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM contact_country WHERE contact_id=?");
+        PreparedStatement statement = connection.prepareStatement("SELECT contact_id FROM contact_country WHERE contact_id=?");
         statement.setInt(1, contactId);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            int countryId = resultSet.getInt(2);
+            int countryId = resultSet.getInt(1);
             return countryId;
         }
-        return 0;
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return Integer.parseInt(null);
     }
 
     public void add(int contactId, int countryId) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO contact_country VALUES (?,?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO contact_country (contact_id, country_id) VALUES (?,?)");
         statement.setInt(1, contactId);
         statement.setInt(2, countryId);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
     }
 
     public void delete(int contactId) throws SQLException {
@@ -43,6 +48,8 @@ public class jdbcContactCountryDao implements ContactCountryDao{
         PreparedStatement statement = connection.prepareStatement("DELETE FROM contact_country WHERE contact_id = ?");
         statement.setInt(1, contactId);
         statement.executeUpdate();
+        statement.close();
+        connection.close();
 
     }
 
@@ -54,8 +61,10 @@ public class jdbcContactCountryDao implements ContactCountryDao{
         while (resultSet.next()) {
             int contactId = resultSet.getInt(1);
             int countryId = resultSet.getInt(2);
-            contactCountries.put(contactId, countryId);
-        }
+            contactCountries.put(contactId, countryId);}
+            resultSet.close();
+            statement.close();
+            connection.close();
         return contactCountries;
     }
 }
