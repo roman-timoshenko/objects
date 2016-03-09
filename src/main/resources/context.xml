@@ -12,12 +12,18 @@
         <property name="password" value="" />
     </bean>
 
-    <jdbc:initialize-database>
+    <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="db/CREATE_ADDRESS_TABLE.SQL"/>
-        <jdbc:script location="db/CREATE_CONTACT_COUNTRY_TABLE.SQL"/>
         <jdbc:script location="db/CREATE_CONTACT_TABLE.SQL"/>
         <jdbc:script location="db/CREATE_COUNTRY_TABLE.SQL"/>
-        <jdbc:script location="db/CREATE_PHONES_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_PHONE_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_CONTACT_COUNTRY_TABLE.SQL"/>
+        <jdbc:script location="db/CREATE_CONTACT_ADDRESS_TABLE.SQL"/>
     </jdbc:initialize-database>
+
+    <bean class="addressbook.dao.jdbc.JdbcAddressDao" id="addressDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
 
 </beans>

@@ -16,40 +16,44 @@ public class JdbcContactDao implements ContactDao {
         this.dataSource = dataSource;
     }
 
-    public void add(String firstName, String lastName) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO contact (first_name, last_name) VALUES (?,?)");
-        statement.setString(1, firstName);
-        statement.setString(2, lastName);
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
-    }
+    public Contact add(String firstName, String lastName) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO contact (first_name, last_name) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.executeUpdate();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    return new Contact(id, firstName, lastName);
+                }
 
-    public Contact get(int id) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT (address_id, first_name, last_name) FROM contact WHERE id = ?");
-        statement.setInt(1, id);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            int addressId = resultSet.getInt(1);
-            String firstName = resultSet.getString(2);
-            String lastName = resultSet.getString(3);
-            Contact contact = new Contact(id, addressId, firstName, lastName);
-            return contact;
+            }
         }
-        resultSet.close();
-        statement.close();
-        connection.close();
         return null;
     }
 
+
+    public Contact get(int id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT (first_name, last_name) FROM contact WHERE id = ?")) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString(1);
+                    String lastName = resultSet.getString(2);
+                    return new Contact(id, firstName, lastName);
+                }
+                return null;
+            }
+        }
+    }
+
     public void delete(int id) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM contact WHERE id = ?");
-        statement.setInt(1, id);
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM contact WHERE id = ?")) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
     }
 }

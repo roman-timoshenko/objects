@@ -17,52 +17,48 @@ public class JdbcContactPhoneDao implements ContactPhoneDao {
     }
 
     public void add(int userId, String phone) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO phone (contact_id, phone) VALUES (?,?)");
-        statement.setInt(1, userId);
-        statement.setString(2, phone);
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO phone (contact_id, phone) VALUES (?,?)")) {
+            statement.setInt(1, userId);
+            statement.setString(2, phone);
+            statement.executeUpdate();
+        }
     }
 
     public String getOne(int contactId) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT phone FROM phone WHERE contact_id=?");
-        statement.setInt(1, contactId);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            String phone = resultSet.getString(1);
-            resultSet.close();
-            return phone;
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT phone FROM phone WHERE contact_id=?")) {
+            statement.setInt(1, contactId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String phone = resultSet.getString(1);
+                    resultSet.close();
+                    return phone;
+                }
+            }
         }
-        connection.close();
         return null;
     }
 
     public void delete(int contactId) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM phone WHERE contact_id = ?");
-        statement.setInt(1, contactId);
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
-
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM phone WHERE contact_id = ?")) {
+            statement.setInt(1, contactId);
+            statement.executeUpdate();
+        }
     }
 
     public Map<Integer, String> getAll(int userId) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        Map<Integer, String> phones = new HashMap();
+        Map<Integer, String> phones = new HashMap<>();
+        try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM phone");
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            int contactId = resultSet.getInt(1);
-            String phone = resultSet.getString(2);
-            phones.put(contactId, phone);
+        ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int contactId = resultSet.getInt(1);
+                String phone = resultSet.getString(2);
+                phones.put(contactId, phone);
+            }
+            return phones;
         }
-        resultSet.close();
-        statement.close();
-        connection.close();
-        return phones;
     }
 }
