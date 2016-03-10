@@ -31,7 +31,7 @@ public class JdbcCountryDao implements CountryDao {
         }
     }
 
-    public Country get(int id) throws SQLException {
+    public Country getNameByID(int id) throws SQLException {
         try (Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT country_name FROM country WHERE id = ?")) {
             statement.setInt(1, id);
@@ -50,6 +50,19 @@ public class JdbcCountryDao implements CountryDao {
         PreparedStatement statement = connection.prepareStatement("DELETE FROM country WHERE id = ?")) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        }
+    }
+
+    public Integer getIdByName(String name) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT id FROM country WHERE country_name = ?")) {
+            statement.setString(1, name);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+                return null;
+            }
         }
     }
 }

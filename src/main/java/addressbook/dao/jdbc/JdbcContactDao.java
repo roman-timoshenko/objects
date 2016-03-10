@@ -34,7 +34,7 @@ public class JdbcContactDao implements ContactDao {
     }
 
 
-    public Contact get(int id) throws SQLException {
+    public Contact getById(int id) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT (first_name, last_name) FROM contact WHERE id = ?")) {
             statement.setInt(1, id);
@@ -54,6 +54,21 @@ public class JdbcContactDao implements ContactDao {
              PreparedStatement statement = connection.prepareStatement("DELETE FROM contact WHERE id = ?")) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public Contact getByName(String firstName, String lastName) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT id FROM contact WHERE (first_name=? AND last_name = ?)")) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new Contact (resultSet.getInt(1), firstName, lastName);
+                }
+                return null;
+            }
         }
     }
 }
