@@ -25,5 +25,21 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
+    <bean class="addressbook.dao.jdbc.JdbcContactAddressDao" id="contactAddressDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean class="addressbook.dao.jdbc.JdbcContactCountryDao" id="contactCountryDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean class="addressbook.dao.jdbc.JdbcContactDao" id="contactDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean class="addressbook.dao.jdbc.JdbcCountryDao" id="countryDao">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
 
 </beans>

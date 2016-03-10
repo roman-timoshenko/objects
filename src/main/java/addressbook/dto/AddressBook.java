@@ -1,4 +1,8 @@
-package addressbook.model;
+package addressbook.dto;
+
+import addressbook.model.Address;
+import addressbook.model.Contact;
+import addressbook.model.Country;
 
 public class AddressBook {
     private Contact contact;

@@ -2,7 +2,7 @@ package addressbook.service;
 
 import addressbook.dao.*;
 import addressbook.model.Address;
-import addressbook.model.AddressBook;
+import addressbook.dto.AddressBook;
 import addressbook.model.Contact;
 import addressbook.model.Country;
 
@@ -39,6 +39,7 @@ public class AddressBookService {
         Contact contact = contactDao.getByName(firstName, lastName);
         Address address = addressDao.get(contactAddressDao.get(contact.getId()));
         Country country = countryDao.getNameByID(contactCountryDao.getOne(contact.getId()));
-
+        String phone = contactPhoneDao.getOne(contact.getId());
+        return new AddressBook(contact, address,country , phone);
     }
 }
