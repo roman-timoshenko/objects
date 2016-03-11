@@ -4,13 +4,13 @@ import addressbook.model.Address;
 import addressbook.model.Contact;
 import addressbook.model.Country;
 
-public class AddressBook {
+public class AddressBookEntry {
     private Contact contact;
     private Address address;
     private Country country;
     private String phone;
 
-    public AddressBook(Contact contact, Address address, Country country, String phone) {
+    public AddressBookEntry(Contact contact, Address address, Country country, String phone) {
         this.contact = contact;
         this.address = address;
         this.country = country;
@@ -35,7 +35,7 @@ public class AddressBook {
 
     @Override
     public String toString() {
-        return "AddressBook{" +
+        return "AddressBookEntry{" +
                 "contact=" + contact +
                 ", address=" + address +
                 ", country='" + country + '\'' +
